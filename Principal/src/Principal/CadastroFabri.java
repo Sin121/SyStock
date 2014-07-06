@@ -1,6 +1,11 @@
 
 package Principal;
 
+import Classes.Fabricante;
+import Classes.HibernateUtil;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+
 public class CadastroFabri extends javax.swing.JFrame {
 
 
@@ -27,6 +32,11 @@ public class CadastroFabri extends javax.swing.JFrame {
         jLabel2.setText("Nome");
 
         jButton1.setText("Cadastrar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Voltar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -79,6 +89,20 @@ public class CadastroFabri extends javax.swing.JFrame {
         new Escolhafunc().setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        Fabricante Novo = new Fabricante(jTextField1.getText());
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            session.save(Novo);
+            session.getTransaction().commit();
+            //HibernateUtil.shutdown();
+        } catch (HibernateException erro) {
+            erro.printStackTrace();
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     public static void main(String args[]) {

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 05/07/2014 23:51:55 by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="Classes.Fabricante" table="fabricante" catalog="systock">
+        <id name="codFabricante" type="java.lang.Integer">
+            <column name="Cod_fabricante" />
+            <generator class="identity" />
+        </id>
+        <property name="nome" type="string">
+            <column name="Nome" length="40" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

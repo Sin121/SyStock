@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 05/07/2014 23:51:55 by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="Classes.TipoEquipamento" table="tipo_equipamento" catalog="systock">
+        <id name="codTipo" type="java.lang.Integer">
+            <column name="Cod_tipo" />
+            <generator class="identity" />
+        </id>
+        <property name="nomeTipoEquip" type="string">
+            <column name="Nome_tipo_equip" length="40" not-null="true" />
+        </property>
+        <property name="descricao" type="string">
+            <column name="Descricao" length="40" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

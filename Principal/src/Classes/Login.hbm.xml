@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 05/07/2014 23:51:55 by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="Classes.Login" table="login" catalog="systock">
+        <id name="codLogin" type="java.lang.Integer">
+            <column name="Cod_login" />
+            <generator class="identity" />
+        </id>
+        <property name="usuario" type="string">
+            <column name="Usuario" length="40" not-null="true" />
+        </property>
+        <property name="senha" type="string">
+            <column name="Senha" length="40" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

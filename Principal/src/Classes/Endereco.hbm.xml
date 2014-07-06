@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 05/07/2014 23:51:55 by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="Classes.Endereco" table="endereco" catalog="systock">
+        <id name="codEnd" type="java.lang.Integer">
+            <column name="Cod_end" />
+            <generator class="identity" />
+        </id>
+        <property name="logradouro" type="string">
+            <column name="logradouro" length="40" not-null="true" />
+        </property>
+        <property name="bairro" type="string">
+            <column name="Bairro" length="40" not-null="true" />
+        </property>
+        <property name="cidade" type="string">
+            <column name="Cidade" length="40" not-null="true" />
+        </property>
+        <property name="numero" type="int">
+            <column name="Numero" not-null="true" />
+        </property>
+        <property name="estado" type="string">
+            <column name="Estado" length="40" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

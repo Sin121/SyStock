@@ -1,6 +1,11 @@
 
 package Principal;
 
+import Classes.HibernateUtil;
+import Classes.TipoEquipamento;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+
 public class CadastroTipoEqui extends javax.swing.JFrame {
 
     public CadastroTipoEqui() {
@@ -29,6 +34,11 @@ public class CadastroTipoEqui extends javax.swing.JFrame {
         jLabel3.setText("Descriçao");
 
         jButton1.setText("Cadastrar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Voltar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -90,6 +100,20 @@ public class CadastroTipoEqui extends javax.swing.JFrame {
        new Escolhafunc().setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        TipoEquipamento Novo = new TipoEquipamento(jTextField1.getText(),jTextField2.getText());
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            session.save(Novo);
+            session.getTransaction().commit();
+            //HibernateUtil.shutdown();
+        } catch (HibernateException erro) {
+            erro.printStackTrace();
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     public static void main(String args[]) {
  
