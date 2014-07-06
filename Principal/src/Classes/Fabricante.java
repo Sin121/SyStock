@@ -34,6 +34,11 @@ public class Fabricante  implements java.io.Serializable {
         this.nome = nome;
     }
 
+    @Override
+    public String toString() {
+        return nome;
+    }
+
 
 
 

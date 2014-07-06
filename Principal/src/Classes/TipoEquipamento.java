@@ -43,6 +43,11 @@ public class TipoEquipamento  implements java.io.Serializable {
         this.descricao = descricao;
     }
 
+    @Override
+    public String toString() {
+        return nomeTipoEquip + ", " + descricao;
+    }
+
 
 
 

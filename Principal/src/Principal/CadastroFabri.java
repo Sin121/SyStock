@@ -3,6 +3,7 @@ package Principal;
 
 import Classes.Fabricante;
 import Classes.HibernateUtil;
+import Classes.Mensagem;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
@@ -99,8 +100,12 @@ public class CadastroFabri extends javax.swing.JFrame {
             session.save(Novo);
             session.getTransaction().commit();
             //HibernateUtil.shutdown();
+            Mensagem msg = new Mensagem("Fabricante ",Novo.toString());
+            msg.sucesso();
         } catch (HibernateException erro) {
-            erro.printStackTrace();
+            Mensagem msg = new Mensagem("Fabricante ",erro.getMessage());
+            msg.erro();
+            //erro.printStackTrace();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

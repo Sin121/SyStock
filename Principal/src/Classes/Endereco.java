@@ -70,6 +70,11 @@ public class Endereco  implements java.io.Serializable {
         this.estado = estado;
     }
 
+    @Override
+    public String toString() {
+        return logradouro + ", " + numero + ", " + bairro + ", " + cidade + ", " + estado;
+    }
+
 
 
 

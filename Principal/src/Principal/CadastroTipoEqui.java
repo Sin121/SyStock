@@ -2,6 +2,7 @@
 package Principal;
 
 import Classes.HibernateUtil;
+import Classes.Mensagem;
 import Classes.TipoEquipamento;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -110,8 +111,12 @@ public class CadastroTipoEqui extends javax.swing.JFrame {
             session.save(Novo);
             session.getTransaction().commit();
             //HibernateUtil.shutdown();
+            Mensagem msg = new Mensagem("Tipo de Equipamento ",Novo.toString());
+            msg.sucesso();
         } catch (HibernateException erro) {
-            erro.printStackTrace();
+            Mensagem msg = new Mensagem("Tipo de Equipamento ",erro.getMessage());
+            msg.erro();
+            //erro.printStackTrace();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
