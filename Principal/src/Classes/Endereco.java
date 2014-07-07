@@ -127,13 +127,17 @@ public class Endereco  implements java.io.Serializable {
         List lista = select.list();  
         session.getTransaction().commit();
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        Fabricante fab;
+        Endereco fab;
         model.setNumRows(0);
         for (int i = 0; i<lista.size();i++){
-            fab = (Fabricante) lista.get(i);
+            fab = (Endereco) lista.get(i);
             String[] data = new String[2];
-            data[0] = String.valueOf(fab.getCodFabricante());
-            data[1] = fab.getNome();
+            data[0] = String.valueOf(fab.getCodEnd());
+            data[1] = fab.getLogradouro();
+            data[2] = String.valueOf(fab.getNumero());
+            data[3] = fab.getBairro();
+            data[4] = fab.getCidade();
+            data[5] = fab.getEstado();
             model.addRow(data);
             System.out.println(data);
         }

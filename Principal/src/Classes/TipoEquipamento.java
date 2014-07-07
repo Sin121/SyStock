@@ -100,13 +100,14 @@ public class TipoEquipamento  implements java.io.Serializable {
         List lista = select.list();  
         session.getTransaction().commit();
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        Fabricante fab;
+        TipoEquipamento fab;
         model.setNumRows(0);
         for (int i = 0; i<lista.size();i++){
-            fab = (Fabricante) lista.get(i);
+            fab = (TipoEquipamento) lista.get(i);
             String[] data = new String[2];
-            data[0] = String.valueOf(fab.getCodFabricante());
-            data[1] = fab.getNome();
+            data[0] = String.valueOf(fab.getCodTipo());
+            data[1] = fab.getNomeTipoEquip();
+            data[2] = fab.getDescricao();
             model.addRow(data);
             System.out.println(data);
         }
