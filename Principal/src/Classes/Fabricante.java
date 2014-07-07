@@ -1,6 +1,12 @@
 package Classes;
 // Generated 05/07/2014 23:51:54 by Hibernate Tools 3.6.0
 
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import org.hibernate.Query;
+import org.hibernate.Session;
+
+
 
 
 /**
@@ -32,6 +38,70 @@ public class Fabricante  implements java.io.Serializable {
     
     public void setNome(String nome) {
         this.nome = nome;
+    }
+    public void cadastrar(){
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            session.save(this);
+            session.getTransaction().commit();
+            //HibernateUtil.shutdown();
+            Mensagem msg = new Mensagem("cadastrado","Fabricante",this.toString());
+            msg.sucesso();
+        } catch (Exception erro) {
+            Mensagem msg = new Mensagem("cadastro","Fabricante",erro.getMessage());
+            msg.erro();
+            //erro.printStackTrace();
+        }
+    }
+    public void excluir(){
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            session.delete(this);
+            session.getTransaction().commit();
+            //HibernateUtil.shutdown();
+            Mensagem msg = new Mensagem("excluido","Fabricante",this.toString());
+            msg.sucesso();
+        } catch (Exception erro) {
+            Mensagem msg = new Mensagem("exclusão","Fabricante",erro.getMessage());
+            msg.erro();
+            //erro.getMessage();
+        }
+    }
+    public void editar(){
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            session.update(this);
+            session.getTransaction().commit();
+            //HibernateUtil.shutdown();
+            Mensagem msg = new Mensagem("editado","Fabricante",this.toString());
+            msg.sucesso();
+        } catch (Exception erro) {
+            Mensagem msg = new Mensagem("edição","Fabricante",erro.getMessage());
+            msg.erro();
+            //erro.getMessage();
+        }
+    }
+    public DefaultTableModel modelo(javax.swing.JTable jTable1){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        Query select = session.createQuery("from Fabricante");  
+        List lista = select.list();  
+        session.getTransaction().commit();
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        Fabricante fab;
+        model.setNumRows(0);
+        for (int i = 0; i<lista.size();i++){
+            fab = (Fabricante) lista.get(i);
+            String[] data = new String[2];
+            data[0] = String.valueOf(fab.getCodFabricante());
+            data[1] = fab.getNome();
+            model.addRow(data);
+            System.out.println(data);
+        }
+        return model;
     }
 
     @Override

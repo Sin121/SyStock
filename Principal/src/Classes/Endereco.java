@@ -1,6 +1,12 @@
 package Classes;
 // Generated 05/07/2014 23:51:54 by Hibernate Tools 3.6.0
 
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import org.hibernate.Query;
+import org.hibernate.Session;
+
+
 
 
 /**
@@ -69,7 +75,71 @@ public class Endereco  implements java.io.Serializable {
     public void setEstado(String estado) {
         this.estado = estado;
     }
-
+    public void cadastrar(){
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            session.save(this);
+            session.getTransaction().commit();
+            //HibernateUtil.shutdown();
+            Mensagem msg = new Mensagem("cadastrado","Endereco",this.toString());
+            msg.sucesso();
+        } catch (Exception erro) {
+            Mensagem msg = new Mensagem("cadastro","Endereco",erro.getMessage());
+            msg.erro();
+            //erro.printStackTrace();
+        }
+    }
+    public void excluir(){
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            session.delete(this);
+            session.getTransaction().commit();
+            //HibernateUtil.shutdown();
+            Mensagem msg = new Mensagem("excluido","Endereco",this.toString());
+            msg.sucesso();
+        } catch (Exception erro) {
+            Mensagem msg = new Mensagem("exclusão","Endereco",erro.getMessage());
+            msg.erro();
+            //erro.getMessage();
+        }
+    }
+    public void editar(){
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            session.update(this);
+            session.getTransaction().commit();
+            //HibernateUtil.shutdown();
+            Mensagem msg = new Mensagem("editado","Endereco",this.toString());
+            msg.sucesso();
+        } catch (Exception erro) {
+            Mensagem msg = new Mensagem("edição","Endereco",erro.getMessage());
+            msg.erro();
+            //erro.getMessage();
+        }
+    }
+    public DefaultTableModel modelo(javax.swing.JTable jTable1){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        Query select = session.createQuery("from Endereco");  
+        List lista = select.list();  
+        session.getTransaction().commit();
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        Fabricante fab;
+        model.setNumRows(0);
+        for (int i = 0; i<lista.size();i++){
+            fab = (Fabricante) lista.get(i);
+            String[] data = new String[2];
+            data[0] = String.valueOf(fab.getCodFabricante());
+            data[1] = fab.getNome();
+            model.addRow(data);
+            System.out.println(data);
+        }
+        return model;
+    }
+    
     @Override
     public String toString() {
         return logradouro + ", " + numero + ", " + bairro + ", " + cidade + ", " + estado;

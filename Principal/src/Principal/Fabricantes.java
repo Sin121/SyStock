@@ -41,6 +41,8 @@ public class Fabricantes extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -62,9 +64,16 @@ public class Fabricantes extends javax.swing.JFrame {
                 "Código", "Fabricante"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
-                false, false
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -76,6 +85,20 @@ public class Fabricantes extends javax.swing.JFrame {
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Excluir");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton4.setText("Editar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
             }
         });
 
@@ -95,7 +118,11 @@ public class Fabricantes extends javax.swing.JFrame {
                         .addGap(90, 90, 90))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jButton1)
+                        .addGap(56, 56, 56)
+                        .addComponent(jButton4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton2)
+                        .addGap(52, 52, 52)
                         .addComponent(jButton3)
                         .addContainerGap())))
         );
@@ -109,7 +136,9 @@ public class Fabricantes extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton3)
-                    .addComponent(jButton1))
+                    .addComponent(jButton1)
+                    .addComponent(jButton2)
+                    .addComponent(jButton4))
                 .addContainerGap())
         );
 
@@ -123,22 +152,35 @@ public class Fabricantes extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        Query select = session.createQuery("from Fabricante");  
-        List lista = select.list();  
-        session.getTransaction().commit();
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        Fabricante fab;
-        for (int i = 0; i<lista.size();i++){
-            fab = (Fabricante) lista.get(i);
-            String[] data = new String[2];
-            data[0] = String.valueOf(fab.getCodFabricante());
-            data[1] = fab.getNome();
-            model.addRow(data);
-            //System.out.println(data);
-        }
+        Fabricante fab = new Fabricante();
+        DefaultTableModel model;
+        model = fab.modelo(jTable1);
+        jTable1.setModel(model);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        Fabricante fab = new Fabricante();
+        fab.setCodFabricante(Integer.parseInt((String) jTable1.getValueAt(jTable1.getSelectedRow(), 0)));
+        fab.setNome((String) jTable1.getValueAt(jTable1.getSelectedRow(), 1));
+        fab.excluir();
+        
+        DefaultTableModel model;
+        model = fab.modelo(jTable1);
+        jTable1.setModel(model);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        Fabricante fab = new Fabricante();
+        fab.setCodFabricante(Integer.parseInt((String) jTable1.getValueAt(jTable1.getSelectedRow(), 0)));
+        fab.setNome((String) jTable1.getValueAt(jTable1.getSelectedRow(), 1));
+        fab.editar();
+        
+        DefaultTableModel model;
+        model = fab.modelo(jTable1);
+        jTable1.setModel(model);
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -177,7 +219,9 @@ public class Fabricantes extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;

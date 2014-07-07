@@ -7,10 +7,6 @@
 package Principal;
 
 import Classes.Endereco;
-import Classes.HibernateUtil;
-import Classes.Mensagem;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
 
 /**
  *
@@ -151,19 +147,7 @@ public class CadastroEndereco extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         Endereco Novo = new Endereco(jTextField1.getText(),jTextField3.getText(),jTextField4.getText(),Integer.parseInt(jTextField2.getText()),jTextField5.getText());
-        try {
-            Session session = HibernateUtil.getSessionFactory().openSession();
-            session.beginTransaction();
-            session.save(Novo);
-            session.getTransaction().commit();
-            //HibernateUtil.shutdown();
-            Mensagem msg = new Mensagem("Tipo de Equipamento",Novo.toString());
-            msg.sucesso();
-        } catch (HibernateException erro) {
-            Mensagem msg = new Mensagem("Tipo de Equipamento",erro.getMessage());
-            msg.erro();
-            //erro.printStackTrace();
-        }
+        Novo.cadastrar();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
